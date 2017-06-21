@@ -28,13 +28,17 @@ if __name__ == '__main__':
     
     #print(out)
     segmentations = ft.getCharSegmentations(img, outputDir, 'base')
-    print segmentations
-    for i in range(segmentations.shape[0]):
+    
+    #print segmentations
+    
+    for i in range(1000):
         rectn = segmentations[i, :]
         rectn[2] += rectn[0]
         rectn[3] += rectn[1]
         
         mask = ft.getSegmentationMask(i)
+        
+	cv2.rectangle(imgc, (rectn[0], rectn[1]), (rectn[2], rectn[3]), (0,255,0), 1)
         
     '''
     for i in range(lines.shape[0]):
@@ -45,9 +49,13 @@ if __name__ == '__main__':
             cv2.imshow("ts", lineSegm)
             cv2.waitKey(0)
     '''
+
+    cv2.imshow("Salida", imgc)
+    cv2.waitKey(0)
+
     
     keypoints = ft.getLastDetectionKeypoints()    
-    draw_keypoints(imgc, keypoints, edgeThreshold, inter = True, color = 0)
+    #draw_keypoints(imgc, keypoints, edgeThreshold, inter = True, color = 0)
     
     
     while imgc.shape[1] > 1024:
